@@ -1,18 +1,24 @@
 import { UserItem } from "@webshop-app/shared"
 import { model, Schema } from "mongoose"
+import bcrypt from 'bcrypt';
 
 const UserSchema = new Schema({
-    fullName: String,
-    email: String,
-    password: String,
-    phoneNumber: Number,
-    address: String
+    fullName: {type: String, required: true},
+    email: {type: String, unique: true, required: true},
+    password: {type: String, required: true},
+    phoneNumber: {type: Number, required: true},
+    address: {type: String, required: true}
 })
 
-const UserModel = model<UserItem>("User", UserSchema)
+export const UserModel = model<UserItem>("User", UserSchema)
+
+UserSchema.pre("save", async function () {
+    this.password = await bcrypt.hash(this.password, 10);
+  });
 
 export const saveUser = async (user: UserItem): Promise<UserItem | null> => {
-    const newModel = new UserModel(user);
-    newModel.save();
-    return newModel;
+    user.password = await bcrypt.hash(user.password, 10);
+    const newUser = new UserModel(user);
+    newUser.save();
+    return newUser;
 };

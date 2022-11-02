@@ -4,6 +4,8 @@ import cors from "cors";
 import { UserItem } from "@webshop-app/shared";
 import { setupMongoDb } from "./db"
 import { saveUser } from "./models/user"
+const { UserModel } = require("./models/user");
+
 
 
 dotenv.config();
@@ -16,12 +18,18 @@ app.use(cors()); // TODO configure cors , this way is not secure
 app.use(json()); // Parse json
 
 app.post("/user/create", async (req: Request<UserItem>, res: Response<any>) => {
-    const newUser = await saveUser(req.body)
-    if (newUser) {
-        console.log(newUser)
-        res.status(200).send({ newUser })
+    const { email } = req.body
+
+    const userExists = await UserModel.findOne({ email });
+
+    if (userExists) {
+        res.status(409).send("An account with this email already exist.")
     } else {
-        res.status(400).send("Something went wrong. Please try again.")
+        const newUser = await saveUser(req.body)
+        if (newUser) {
+            console.log(newUser)
+            res.status(200).send({ newUser })
+        }
     }
 })
 
