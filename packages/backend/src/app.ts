@@ -1,14 +1,9 @@
-import express, {
-    Application,
-    Express,
-    json,
-    Request,
-    Response,
-} from "express";
+import express, { Application, json, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { UserItem } from "@webshop-app/shared";
-import { setupMongoDb, saveUser } from "./db"
+import { setupMongoDb } from "./db"
+import { saveUser } from "./models/user"
 
 
 dotenv.config();
