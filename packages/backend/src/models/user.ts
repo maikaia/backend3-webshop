@@ -12,10 +12,6 @@ const UserSchema = new Schema({
 
 export const UserModel = model<UserItem>("User", UserSchema)
 
-UserSchema.pre("save", async function () {
-    this.password = await bcrypt.hash(this.password, 10);
-  });
-
 export const saveUser = async (user: UserItem): Promise<UserItem | null> => {
     user.password = await bcrypt.hash(user.password, 10);
     const newUser = new UserModel(user);
