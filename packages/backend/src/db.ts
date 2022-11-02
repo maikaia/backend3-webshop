@@ -2,12 +2,14 @@ import {UserItem} from "@webshop-app/shared"
 import { connect, model, Schema } from "mongoose"
 
 const UserSchema = new Schema({
-    text: String,
-    author: String,
-    timeStamp: Date
+    fullName: String,
+    email: String,
+    password: String,
+    phoneNumber: Number,
+    address: String
 })
 
-const MessageModel = model<UserItem>("UserItem", UserSchema)
+const UserModel = model<UserItem>("User", UserSchema)
 
 export const setupMongoDb = async (url: string) => {
     try {
@@ -18,3 +20,9 @@ export const setupMongoDb = async (url: string) => {
         throw e;
     }
 }
+
+export const saveUser = async (user: UserItem): Promise<UserItem | null> => {  
+    const newModel = new UserModel(user);
+    newModel.save();
+    return newModel;
+  };
