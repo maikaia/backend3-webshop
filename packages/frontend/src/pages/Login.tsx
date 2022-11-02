@@ -7,7 +7,7 @@ function Login() {
     <div className="App">
       <header className="App-header">
         <form>
-            <input placeholder='Username'></input>
+            <input placeholder='Email'></input>
             <input placeholder='Password'></input>
             <button>Login</button>
         </form>

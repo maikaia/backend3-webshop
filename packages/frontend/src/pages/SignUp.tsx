@@ -15,14 +15,17 @@ function SignUp() {
 
     const handleOnSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-
+        setError("")
         await axios
             .post("/user/create", {
-                fullName: fullName,
-                password: password,
-                email: email,
-                phoneNumber: phoneNumber,
-                address: address,
+                fullName,
+                password,
+                email,
+                phoneNumber,
+                address,
+            })
+            .catch((e: any) => {
+                setError(e.response.data)
             })
     };
 
@@ -57,6 +60,9 @@ function SignUp() {
                     />
                     <button onClick={handleOnSubmit}>Create Account!</button>
                 </form>
+                {error && (
+                    <p>{error}</p>
+                )}
             </header>
         </div>
     );
