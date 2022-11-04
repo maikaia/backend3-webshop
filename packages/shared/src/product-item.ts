@@ -5,5 +5,5 @@ export interface ProductItem{
     category: string,
     picture: string,
     weight: number,
-    price: number,
+    price: number
 }
