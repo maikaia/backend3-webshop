@@ -10,6 +10,7 @@ function Login() {
             <input placeholder='Email'></input>
             <input placeholder='Password'></input>
             <button>Login</button>
+            {/* hola */}
         </form>
         <Link to="/signup">Sign up here!</Link>
       </header>
