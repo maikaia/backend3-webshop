@@ -1,4 +1,4 @@
-import '../App.css';
+import '../styles/App.css';
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { UserItem } from "@webshop-app/shared";

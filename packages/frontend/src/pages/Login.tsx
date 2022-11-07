@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../styles/App.css';
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ function Login() {
       .then((response: any) => {
         const token = response.data;
         localStorage.setItem("jwt", token);
-        navigate("/home")
+        navigate("/")
       })
       .catch((e: any) => {
         setError(e.response.data)
