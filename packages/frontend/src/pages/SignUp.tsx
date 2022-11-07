@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import axios from "axios";
-// import {Link} from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const [fullName, setFullName] = useState<string>("")
@@ -12,6 +12,8 @@ function SignUp() {
     const [error, setError] = useState<string>("");
 
     axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:8800";
+
+    const navigate = useNavigate()
 
     const handleOnSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -24,6 +26,11 @@ function SignUp() {
                 phoneNumber,
                 address,
             })
+            .then((response: any) => {
+                const token = response.data;
+                localStorage.setItem("jwt", token);
+                navigate("/")
+              })
             .catch((e: any) => {
                 setError(e.response.data)
             })
