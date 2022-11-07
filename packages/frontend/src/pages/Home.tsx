@@ -12,7 +12,7 @@ function App() {
                 <Link to="/account">Account</Link>
                 {productData.map(item => (
                     <div key={item.id}>
-                        <h1>{item.title} - {item.price}$</h1>
+                        <h1><Link to={`/product/${item.id}`}>{item.title} </Link>- {item.price}$</h1>
                         <img src={item.image}/>
                     </div>
                 ))}
