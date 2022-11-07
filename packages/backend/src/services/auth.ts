@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const JWT_COOKIE_NAME = "jwt";
+dotenv.config()
+
+const SECRET = process.env.JWT_SECRET || ""
 
 export type TokenPayload = {
   email: string;
@@ -13,7 +15,6 @@ export interface JwtRequest<T> extends Request<T> {
 }
 
 export const createToken = (email: string | undefined) => {
-  const SECRET = process.env.JWT_SECRET
   const token = jwt.sign({ email: email }, SECRET, {
     expiresIn: "1h"
   });
@@ -27,8 +28,8 @@ export const authUser = (req: JwtRequest<any>, res: Response, next: any) => {
     try {
       const decoded = jwt.verify(
         token,
-        process.env.JWT_SECRET
-      ) as TokenPayload;
+        SECRET
+      ) as unknown as TokenPayload;
       req.jwt = decoded;
       next();
     } catch {

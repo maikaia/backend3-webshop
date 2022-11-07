@@ -1,6 +1,7 @@
-import '../styles/App.css';
-import axios from "axios";
 import { useEffect, useState } from "react"
+import axios from "axios";
+
+import '../styles/App.css';
 import { UserItem } from "@webshop-app/shared";
 import { useNavigate } from 'react-router-dom';
 
@@ -11,10 +12,10 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const token = localStorage.getItem("jwt");
   useEffect(() => {
-    axios
-      .get("/getuser", {
+    const token = localStorage.getItem("jwt");
+
+    axios.get("/getuser", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +29,7 @@ function Login() {
   }, []);
 
   const logOut = async (e: { preventDefault: () => void }) => {
-    localStorage.setItem("jwt", "")
+    localStorage.clear()
     navigate("/")
   };
 

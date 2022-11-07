@@ -1,7 +1,7 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+
 import '../styles/App.css';
 import productData from "../data/products.json"
-import { Link } from 'react-router-dom';
 
 function App() {
     return (
@@ -12,8 +12,8 @@ function App() {
                 <Link to="/account">Account</Link>
                 {productData.map(item => (
                     <div key={item.id}>
-                        <h1><Link to={`/product/${item.id}`}>{item.title} </Link>- {item.price}$</h1>
-                        <img src={item.image}/>
+                        <h1><Link to={`/product/${item.id}`}> {item.title} </Link> - ${item.price}</h1>
+                        <img src={item.image} alt="pic of item"/>
                     </div>
                 ))}
             </header>
