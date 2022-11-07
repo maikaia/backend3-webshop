@@ -22,4 +22,4 @@ export const saveNewUser = async (user: UserItem): Promise<UserItem | null> => {
 export const getUser = async (email: string | undefined): Promise<UserItem | null> => {
     const userInfo = await UserModel.findOne({ email: email }).select("-password");
     return userInfo
-  };
+};

@@ -1,12 +1,13 @@
 import express, { Application, json, Request, Response } from "express";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 import cors from "cors";
+
 import { UserItem } from "@webshop-app/shared";
-import { setupMongoDb } from "./db"
-const { UserModel } = require("./models/user");
 import { authUser, createToken, JwtRequest } from "./services/auth"
 import { saveUser, getUserByEmail } from "./services/user"
-const bcrypt = require("bcrypt");
+import { UserModel } from "./models/user";
+import { setupMongoDb } from "./db"
 
 dotenv.config();
 
@@ -14,8 +15,8 @@ const app: Application = express();
 const port: number = parseInt(process.env.port || "8800");
 const mongoUrl: string = process.env.MONGODB_URL || "mongodb://127.0.0.1/webshop"
 
-app.use(cors()); // TODO configure cors , this way is not secure
-app.use(json()); // Parse json
+app.use(cors());
+app.use(json());
 
 app.post("/user/create", async (req: Request<UserItem>, res: Response<any>) => {
     const { email } = req.body
@@ -23,20 +24,18 @@ app.post("/user/create", async (req: Request<UserItem>, res: Response<any>) => {
     const userExists = await UserModel.findOne({ email });
 
     if (userExists) {
-        res.status(409).send("An account with this email already exist.")
+        res.status(409).send("An account with this email already exists.")
     } else {
         const newUser = await saveUser(req.body)
         if (newUser) {
             const userInfo = await getUserByEmail(newUser.email);
-            const token = await createToken(newUser.email);
+            const token = createToken(newUser.email);
             res.status(200).send({ token, userInfo });
         }
     }
 })
 
-app.post(
-    "/user/login",
-    async (req: JwtRequest<UserItem>, res: Response<string>) => {
+app.post("/user/login", async (req: JwtRequest<UserItem>, res: Response<string>) => {
       const credentials = req.body;
   
       const userExists = await UserModel.findOne({
@@ -65,10 +64,7 @@ app.post(
     }
   );
 
-  app.get(
-    "/getuser",
-    authUser,
-    async (req: JwtRequest<UserItem>, res: Response<any>) => {
+  app.get("/getuser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
       const user = req.jwt;
       try {
         const userEmail = await getUserByEmail(user?.email);

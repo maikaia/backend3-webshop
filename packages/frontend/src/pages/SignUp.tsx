@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import '../styles/App.css';
-import axios from "axios";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
+import '../styles/App.css';
 
 function SignUp() {
     const [fullName, setFullName] = useState<string>("")
@@ -18,8 +19,7 @@ function SignUp() {
     const handleOnSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         setError("")
-        await axios
-            .post("/user/create", {
+        await axios.post("/user/create", {
                 fullName,
                 password,
                 email,

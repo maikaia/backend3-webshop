@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import '../styles/App.css';
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { useNavigate } from 'react-router-dom';
+
+import '../styles/App.css';
 
 
 function Login() {
@@ -16,8 +16,7 @@ function Login() {
 
   const handleOnSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    await axios
-      .post("/user/login", {
+    await axios.post("/user/login", {
         password,
         email,
       })
@@ -37,6 +36,7 @@ function Login() {
         {error}
         <form>
           <input
+            type="text"
             placeholder='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
