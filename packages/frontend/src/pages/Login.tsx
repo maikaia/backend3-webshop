@@ -24,6 +24,7 @@ function Login() {
         const token = response.data;
         localStorage.setItem("jwt", token);
         navigate("/")
+        window.location.reload()
       })
       .catch((e: any) => {
         setError(e.response.data)
@@ -33,6 +34,7 @@ function Login() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Hello Login!</h1>
         {error}
         <form>
           <input

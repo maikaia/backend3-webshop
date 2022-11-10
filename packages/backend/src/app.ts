@@ -67,7 +67,7 @@ app.post("/user/login", async (req: JwtRequest<UserItem>, res: Response<string>)
   }
 );
 
-app.get("/getuser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
+app.get("/getUser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
     const user = req.jwt;
     try {
       const userEmail = await getUserByEmail(user?.email);

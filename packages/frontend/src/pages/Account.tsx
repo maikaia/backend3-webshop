@@ -3,7 +3,7 @@ import axios from "axios";
 
 import '../styles/App.css';
 import { UserItem } from "@webshop-app/shared";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function Login() {
@@ -15,7 +15,7 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
 
-    axios.get("/getuser", {
+    axios.get("/getUser", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,17 +25,12 @@ function Login() {
       })
       .catch((error) => {
         console.log(error);
+        navigate("/login")
       });
   }, []);
 
-  const logOut = async (e: { preventDefault: () => void }) => {
-    localStorage.clear()
-    navigate("/")
-  };
-
   return (
     <div className="App">
-      <button onClick={(logOut)}>Log out</button>
       <header className="App-header">
         <h1>Hello {user?.fullName}</h1>
         <p>Current information we have about you:</p>

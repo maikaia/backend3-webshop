@@ -26,10 +26,8 @@ function SignUp() {
                 phoneNumber,
                 address,
             })
-            .then((response: any) => {
-                const token = response.data;
-                localStorage.setItem("jwt", token);
-                navigate("/")
+            .then(() => {
+                navigate("/login")
               })
             .catch((e: any) => {
                 setError(e.response.data)
