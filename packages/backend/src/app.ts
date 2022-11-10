@@ -2,6 +2,7 @@ import express, { Application, json, Request, Response } from "express";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import mongoose from "mongoose"
 
 import { CartItem, ProductItem, UserItem } from "@webshop-app/shared";
 import { authUser, createToken, JwtRequest } from "./services/auth"
@@ -100,6 +101,8 @@ app.get("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Respons
       return res.sendStatus(404)
     }
     return res.json(cart)
+  } else {
+    throw new Error("error!")
   }
 })
 
@@ -119,13 +122,22 @@ app.post("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Respon
   }
 })
 
-// app.delete("/cart/active", async (req: Request<CartItem["_id"]>, res: Response<CartItem[]>) => {
-//   const unluckyItem = req.body
-//   await removeCartItem(unluckyItem)
-//   const newCart = await loadCart()
-//   res.send(newCart)
-//   console.log(newCart)
-// })
+app.delete("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Response) => {
+  if (req.jwt?.email) {
+    const user = await UserModel.findOne({email: req.jwt.email})
+    const cart = await CartModel.findById(user?.activeCart)
+    if (!cart) {
+      return res.sendStatus(404)
+    }
+    const indexOfProduct = cart.products.findIndex(product => product._id == req.body.productId)
+    cart.products.splice(indexOfProduct, 1)
+    await cart.save()
+    const newCart = await CartModel.findById(user?.activeCart).populate("products")
+    return res.json(newCart)    
+  } else {
+    throw new Error("error!")
+  }
+})
 
 app.listen(port, async function () {
     await setupMongoDb(mongoUrl)
