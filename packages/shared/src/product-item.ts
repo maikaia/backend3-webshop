@@ -1,4 +1,5 @@
 export interface ProductItem {
+    _id?: string,
     id?: number,
     title: string,
     manufacturer: string,

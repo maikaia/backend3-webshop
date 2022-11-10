@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose"
-import { CartItem, ProductItem, UserItem } from "@webshop-app/shared"
+import { CartItem } from "@webshop-app/shared"
 
 const CartSchema = new Schema({
     isBought: Boolean,
