@@ -3,5 +3,6 @@ export interface UserItem {
     email: string,
     password: string,
     phoneNumber: number,
-    address: string
+    address: string,
+    activeCart: string
 }

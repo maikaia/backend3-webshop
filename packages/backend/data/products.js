@@ -1,4 +1,4 @@
-[
+export const products = [
     {
         "id": 1,
         "title": "Fjällräven - Foldsack No. 1 Backpack",
