@@ -1,7 +1,7 @@
 import '../styles/App.css';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { ProductItem, UserItem } from '@webshop-app/shared';
+import { ProductItem } from '@webshop-app/shared';
 import axios from "axios"
 
 

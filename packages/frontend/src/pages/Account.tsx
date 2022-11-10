@@ -3,7 +3,7 @@ import axios from "axios";
 
 import '../styles/App.css';
 import { UserItem } from "@webshop-app/shared";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Account() {
@@ -16,10 +16,10 @@ function Account() {
     const token = localStorage.getItem("jwt");
 
     axios.get("/getUser", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         setUser(res.data);
       })
@@ -27,6 +27,7 @@ function Account() {
         console.log(error);
         navigate("/login")
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
