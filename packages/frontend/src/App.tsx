@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
 import HomePage from './pages/Home';
+import CartPage from './pages/Cart';
 import LoginPage from './pages/Login';
 import DetailPage from './pages/Detail';
 import SignUpPage from './pages/SignUp';
@@ -10,11 +11,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/products" element={<HomePage />} />
+        <Route path="/products/:id" element={<DetailPage />} />
+        <Route path="/cart/active" element={<CartPage />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/product/:id" element={<DetailPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );
