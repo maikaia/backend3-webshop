@@ -7,7 +7,7 @@ import DetailPage from './pages/Detail';
 import SignUpPage from './pages/SignUp';
 import AccountPage from './pages/Account';
 
-import {Navbar} from "./component/Navbar"
+import { Navbar } from "./components/Navbar"
 
 function App() {
   return (

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import { Link } from "react-router-dom"
 
+import "../styles/Navbar.css"
+
 export function Navbar() {
     const [user, setUser] = useState<UserItem>()
 
@@ -28,9 +30,9 @@ export function Navbar() {
     };
 
     return (
-        <div>
-            <Link to="/">Home</Link>
-            {user ? <button onClick={logOut}>Logout</button> : <Link to="/login">Login</Link>}
+        <div className="Navbar">
+            <Link to="/">Home</Link> —
+            {user ? <Link to={"/login"} onClick={() => logOut()}>Logout</Link> : <Link to="/login">Login</Link>} —
             <Link to="/account">Account</Link>
         </div>
 

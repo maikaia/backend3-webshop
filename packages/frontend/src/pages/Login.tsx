@@ -34,7 +34,7 @@ function Login() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello Login!</h1>
+        <h1>Hello, Log in!</h1>
         {error}
         <form>
           <input
@@ -51,7 +51,7 @@ function Login() {
           />
           <button onClick={handleOnSubmit}>Login!</button>
         </form>
-        <Link to="/signup">Sign up here!</Link>
+        <Link to="/signup" >Sign up here!</Link>
       </header>
     </div>
   );

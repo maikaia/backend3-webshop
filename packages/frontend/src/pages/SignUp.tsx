@@ -37,6 +37,7 @@ function SignUp() {
     return (
         <div className="App">
             <header className="App-header">
+                <h1>Sign Up!</h1>
                 <form>
                     <input
                         placeholder='Full name'
