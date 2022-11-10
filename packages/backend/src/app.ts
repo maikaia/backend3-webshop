@@ -92,16 +92,16 @@ app.get("/products/:id", async (req: Request<ProductItem["id"]>, res: Response<P
   res.send(await loadProduct(id))
 })
 
-// app.get("/cart/active", async (req: JwtRequest<UserItem>, res: Response<CartItem[]>) => {
-//   if (req.jwt) {
-//     const user = req.jwt 
-//     const userEmail = await getUserByEmail(user?.email)
-//     console.log("user: ", user)
-//     res.send(await loadCart(userEmail))
-//   } else {
-//     throw new Error("error!")
-//   }
-// })
+app.get("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Response) => {
+  if (req.jwt?.email) {
+    const user = await UserModel.findOne({email: req.jwt.email})
+    const cart = await CartModel.findById(user?.activeCart).populate("products")
+    if (!cart) {
+      return res.sendStatus(404)
+    }
+    return res.json(cart)
+  }
+})
 
 app.post("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Response) => {
   if (req.jwt?.email) {
@@ -113,7 +113,6 @@ app.post("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Respon
     cart.products.push(req.body.productId)
     await cart.save()
     const savedCart = await CartModel.findById(user?.activeCart).populate("products")
-    console.log("savedcart: ", savedCart)
     return res.json(savedCart)
   } else {
     throw new Error("error!")
