@@ -34,6 +34,7 @@ function Login() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Hello Login!</h1>
         {error}
         <form>
           <input
