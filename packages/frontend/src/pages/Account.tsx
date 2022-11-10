@@ -6,7 +6,7 @@ import { UserItem } from "@webshop-app/shared";
 import { useNavigate, Link } from 'react-router-dom';
 
 
-function Login() {
+function Account() {
   const [user, setUser] = useState<UserItem>()
   axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:8800";
 
@@ -43,4 +43,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Account;

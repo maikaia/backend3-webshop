@@ -5,7 +5,7 @@ import { ProductItem, UserItem } from '@webshop-app/shared';
 import axios from "axios"
 
 
-function App() {
+function Detail() {
     const [products, setProducts] = useState<ProductItem[]>()
     let { id } = useParams();
 
@@ -39,4 +39,4 @@ function App() {
     );
 }
 
-export default App;
+export default Detail;

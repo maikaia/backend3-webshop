@@ -5,7 +5,7 @@ import axios from "axios"
 
 import '../styles/App.css';
 
-function App() {
+function Home() {
     const [products, setProducts] = useState<ProductItem[]>()
     axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:8800";
 
@@ -36,4 +36,4 @@ function App() {
     );
 }
 
-export default App;
+export default Home;
