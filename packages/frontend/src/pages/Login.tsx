@@ -24,6 +24,7 @@ function Login() {
         const token = response.data;
         localStorage.setItem("jwt", token);
         navigate("/")
+        window.location.reload()
       })
       .catch((e: any) => {
         setError(e.response.data)
