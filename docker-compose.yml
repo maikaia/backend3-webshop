@@ -23,3 +23,6 @@ services:
     container_name: db
     volumes:
       - /data/db
+      - ./initdb.js:/docker-entrypoint-initdb.d/initdb.js
+    environment:
+      - MONGO_INITDB_DATABASE=webshop

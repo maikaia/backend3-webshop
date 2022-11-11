@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("");
 
-  axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:8800";
+  axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:4000";
 
   const navigate = useNavigate()
 

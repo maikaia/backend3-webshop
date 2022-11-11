@@ -7,7 +7,7 @@ import '../styles/App.css';
 
 function Home() {
     const [products, setProducts] = useState<ProductItem[]>()
-    axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:8800";
+    axios.defaults.baseURL = process.env.REACT_APP_API || "4000";
 
     useEffect(() => {
         axios.get("/products")

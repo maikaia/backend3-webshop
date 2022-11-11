@@ -15,6 +15,8 @@ ENV JWT_SECRET=asdoiuhgafnblkjshfd
 
 RUN npm run build -w packages/backend
 
-EXPOSE 4000
+EXPOSE 8800
+
+CMD [ "node", "packages/initdb.js"]
 
 CMD [ "node", "packages/backend/dist/app.js" ]

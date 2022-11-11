@@ -1,6 +1,6 @@
 import mongoose, { model, Schema } from "mongoose"
 import { ProductItem } from "@webshop-app/shared"
-import { products } from "../../data/products"
+import { products } from "../data/products"
 
 const ProductSchema = new Schema({
     id: Number,

@@ -15,7 +15,7 @@ import { loadProduct, loadProductList, ProductModel, saveProducts } from "./mode
 dotenv.config();
 
 const app: Application = express();
-const port: number = parseInt(process.env.port || "8800");
+const PORT: number = parseInt(process.env.PORT || "4000");
 const mongoUrl: string = process.env.MONGODB_URL || "mongodb://127.0.0.1/webshop"
 
 app.use(cors());
@@ -153,7 +153,7 @@ app.delete("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Resp
   }
 })
 
-app.listen(port, async function () {
+app.listen(PORT, async function () {
     await setupMongoDb(mongoUrl)
-    console.log(`Server running on port: ${port}`);
+    console.log(`Server running on port: ${PORT}`);
 });
