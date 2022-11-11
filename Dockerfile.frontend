@@ -11,8 +11,8 @@ RUN npm ci -w packages/frontend
 COPY ./packages/frontend ./packages/frontend
 COPY ./packages/shared ./packages/shared
 
-ARG APP_CHAT_API
-ENV REACT_APP_CHAT_API=${APP_CHAT_API}
+ARG APP_API
+ENV REACT_APP_API=${APP_API}
 
 RUN npm run build -w packages/frontend
 EXPOSE 3000

@@ -12,7 +12,7 @@ services:
     build:
       dockerfile: Dockerfile.frontend
       args:
-        APP_TODO_API: http://localhost:4000
+        APP_API: http://localhost:4000
     ports:
       - "3000:3000"
 
