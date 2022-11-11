@@ -6,7 +6,7 @@ import mongoose from "mongoose"
 
 import { CartItem, ProductItem, UserItem } from "@webshop-app/shared";
 import { authUser, createToken, JwtRequest } from "./services/auth"
-import { saveUser, getUserByEmail } from "./services/user"
+import { saveUser, getUserByEmail, updateUser } from "./services/user"
 import { UserModel } from "./models/user";
 import { setupMongoDb } from "./db"
 import { CartModel } from "./models/cart";
@@ -63,6 +63,20 @@ app.post("/user/login", async (req: JwtRequest<UserItem>, res: Response<string>)
       }
     } else {
       res.status(403).send("No user found with this email");
+    }
+  }
+);
+
+app.put("/user/update", authUser, async (req: JwtRequest<any>, res: Response) => {
+    const userEmail = req.jwt?.email;
+    const newUserInfo = req.body;
+
+    try {
+      const newUser = await updateUser(userEmail, newUserInfo);
+      const token = createToken(newUser?.email);
+      res.status(200).send(token);
+    } catch (error) {
+      res.status(403).send("That email already exists, please try another one");
     }
   }
 );
