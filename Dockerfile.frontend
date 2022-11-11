@@ -1,0 +1,20 @@
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+COPY ./package*.json ./
+COPY ./packages/frontend/package*.json ./packages/frontend/
+COPY ./packages/shared/package*.json ./packages/shared/
+
+RUN npm ci -w packages/frontend
+
+COPY ./packages/frontend ./packages/frontend
+COPY ./packages/shared ./packages/shared
+
+ARG APP_CHAT_API
+ENV REACT_APP_CHAT_API=${APP_CHAT_API}
+
+RUN npm run build -w packages/frontend
+EXPOSE 3000
+
+CMD [ "npx", "serve", "-s", "packages/frontend/build" ]

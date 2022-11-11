@@ -1,0 +1,5 @@
+packages/frontend/node_modules
+packages/frontend/build
+packages/backend/node_modules
+packages/backend/dist
+node_modules

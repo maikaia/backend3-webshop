@@ -2,8 +2,11 @@
   "name": "@webshop-app/shared",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
   "main": "src/index.ts",
-  "devDependencies": {},
   "scripts": {
     "build": "tsc"
   },
