@@ -6,8 +6,10 @@
 - Get Docker working properly
 
 ### Cart UI
-Add "Add to cart" button which sends product ID to backend which will be handled accordingly.
-Add page for items in shopping cart, GET to /cart/active.
+~~Add "Add to cart" button which sends product ID to backend which will be handled accordingly.
+Add page for items in shopping cart, GET to /cart/active.~~
+
+Cart UI working (POST/GET/DELETE)
 
 ### Checkout system & receipts
 When user checks out cart, save existing cart to checkout, delete cart, and give user a new cart.
