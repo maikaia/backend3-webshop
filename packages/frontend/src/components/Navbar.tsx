@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import "../styles/Navbar.css"
 
 export function Navbar() {
-    const [user, setUser] = useState<UserItem>()
+    const [user, setUser] = useState<UserItem | null>()
 
     useEffect(() => {
         const token = localStorage.getItem("jwt");
@@ -16,12 +16,16 @@ export function Navbar() {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((res) => {
+        .then((res) => {
+            if (res.data) {
                 setUser(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            } else {
+                setUser(null)
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }, []);
 
     const logOut = async () => {
@@ -32,8 +36,9 @@ export function Navbar() {
     return (
         <div className="Navbar">
             <Link to="/">Home</Link> —
-            {user ? <Link to={"/login"} onClick={() => logOut()}>Logout</Link> : <Link to="/login">Login</Link>} —
-            <Link to="/account">Account</Link>
+            {user ? <Link to="/login" onClick={() => logOut()}>Logout</Link> : <Link to="/login">Login</Link>} —
+            <Link to="/account">Account</Link> —
+            {user ? <Link to="/cart/active">Cart</Link> : <Link to="#">Log in to see your cart</Link>}
         </div>
 
     )
