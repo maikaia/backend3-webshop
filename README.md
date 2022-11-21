@@ -6,11 +6,11 @@
 - Get Docker working properly
 - Update user info
 
-### Cart UI
+### ~~Cart UI~~ Cart UI working (POST/GET/DELETE)
 ~~Add "Add to cart" button which sends product ID to backend which will be handled accordingly.
 Add page for items in shopping cart, GET to /cart/active.~~
 
-Cart UI working (POST/GET/DELETE)
+
 
 ### Update user information 
 PATCH/PUT call to update user's information if they want to change it.
