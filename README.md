@@ -1,7 +1,7 @@
 # backend3-webshop
 
 ## TODOS
-- Frontend UI for shopping cart
+- ~~Frontend UI for shopping cart~~
 - Checkout and receipt system
 - Get Docker working properly
 
