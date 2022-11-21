@@ -25,8 +25,8 @@ function Home() {
                 {products?.map((item) =>
                     <div key={item.id}>
                         <Link to={`products/${item.id}`}>
-                            <h1>{item.title}</h1>
-                            <img src={item.image} alt="bla" />
+                            <h3>{item.title}</h3>
+                            <img src={item.image} alt={item.title} />
                         </Link>
                         <h1>${item.price}</h1>
                     </div>
