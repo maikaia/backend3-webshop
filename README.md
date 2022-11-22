@@ -1,19 +1,17 @@
 # backend3-webshop
 
 ## TODOS
-- ~~Frontend UI for shopping cart~~
+- ~~Frontend UI for shopping cart~~ √
 - Checkout and receipt system
 - Get Docker working properly
-- Update user info
+- ~~Update user info~~ √
 
-### ~~Cart UI~~ Cart UI working (POST/GET/DELETE)
+### Cart UI √
 ~~Add "Add to cart" button which sends product ID to backend which will be handled accordingly.
 Add page for items in shopping cart, GET to /cart/active.~~
 
-
-
-### Update user information 
-PATCH/PUT call to update user's information if they want to change it.
+### Update user information √
+~~PUT call to update user's information if they want to change it.~~
 
 ### Checkout system & receipts
 When user checks out cart, save existing cart to checkout, delete cart, and give user a new cart.
