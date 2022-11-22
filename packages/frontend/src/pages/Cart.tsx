@@ -44,14 +44,14 @@ function Cart() {
     return (
       <div className="App">
           <div className="App-header">
-              {cartItems?.products.map((item) => {
-                  return <div key={item._id}>
-                      <h3>{item.title}</h3>
-                      <img src={item.image} alt={item.title} />
-                      <h1>${item.price}</h1>
-                      <button onClick={() => {removeCartItem(item._id)}}>remove item</button>
-                  </div>
-              })}
+            {cartItems?.products.length ? cartItems?.products.map((item) => {
+                    return <div key={item._id}>
+                        <h3>{item.title}</h3>
+                        <img src={item.image} alt={item.title} />
+                        <h1>${item.price}</h1>
+                        <button onClick={() => {removeCartItem(item._id)}}>remove item</button>
+                    </div>
+                }) : <div>Cart is empty. Buy more stuff.</div>}
           </div>
       </div>
     )
