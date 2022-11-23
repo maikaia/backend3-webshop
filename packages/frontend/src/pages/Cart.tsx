@@ -41,9 +41,14 @@ function Cart() {
         })
     }
 
+    const handleOnCheckout = async (): Promise<any> => {
+        
+    }
+
     return (
       <div className="App">
           <div className="App-header">
+            {cartItems?.products.length ? <button onClick={() => handleOnCheckout}>Check out!</button> : null}
             {cartItems?.products.length ? cartItems?.products.map((item) => {
                     return <div key={item._id}>
                         <h3>{item.title}</h3>
@@ -51,7 +56,7 @@ function Cart() {
                         <h1>${item.price}</h1>
                         <button onClick={() => {removeCartItem(item._id)}}>remove item</button>
                     </div>
-                }) : <div>Cart is empty. Buy more stuff.</div>}
+            }) : <div>Cart is empty. Buy more stuff.</div>}
           </div>
       </div>
     )

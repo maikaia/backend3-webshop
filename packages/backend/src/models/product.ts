@@ -13,7 +13,7 @@ const ProductSchema = new Schema({
     price: Number,
 })
 
-export const ProductModel = model<ProductItem>("ProductItem", ProductSchema)
+export const ProductModel = model<ProductItem>("Product", ProductSchema)
 
 export const saveProducts = () => {
     ProductModel.insertMany(products)

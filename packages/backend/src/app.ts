@@ -2,15 +2,14 @@ import express, { Application, json, Request, Response } from "express";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import cors from "cors";
-import mongoose from "mongoose"
 
 import { CartItem, ProductItem, UserItem } from "@webshop-app/shared";
-import { authUser, createToken, JwtRequest } from "./services/auth"
 import { saveUser, getUserByEmail, updateUser } from "./services/user"
+import { authUser, createToken, JwtRequest } from "./services/auth"
+import { loadProduct, loadProductList, saveProducts } from "./models/product";
 import { UserModel } from "./models/user";
-import { setupMongoDb } from "./db"
 import { CartModel } from "./models/cart";
-import { loadProduct, loadProductList, ProductModel, saveProducts } from "./models/product";
+import { setupMongoDb } from "./db"
 
 dotenv.config();
 
@@ -152,6 +151,8 @@ app.delete("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Resp
     throw new Error("error!")
   }
 })
+
+
 
 app.listen(PORT, async function () {
     await setupMongoDb(mongoUrl)
