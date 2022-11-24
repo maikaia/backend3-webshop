@@ -3,13 +3,15 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import cors from "cors";
 
-import { CartItem, ProductItem, UserItem } from "@webshop-app/shared";
+import { CartItem, OrderItem, ProductItem, UserItem } from "@webshop-app/shared";
 import { saveUser, getUserByEmail, updateUser } from "./services/user"
 import { authUser, createToken, JwtRequest } from "./services/auth"
 import { loadProduct, loadProductList, saveProducts } from "./models/product";
 import { UserModel } from "./models/user";
 import { CartModel } from "./models/cart";
 import { setupMongoDb } from "./db"
+import { OrderModel } from "./models/order";
+import { resolveSoa } from "dns";
 
 dotenv.config();
 
@@ -113,6 +115,7 @@ app.get("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Respons
     if (!cart) {
       return res.sendStatus(404)
     }
+    console.log(cart.products)
     return res.json(cart)
   } else {
     throw new Error("error!")
@@ -146,13 +149,35 @@ app.delete("/cart/active", authUser, async (req: JwtRequest<CartItem>, res: Resp
     cart.products.splice(indexOfProduct, 1)
     await cart.save()
     const newCart = await CartModel.findById(user?.activeCart).populate("products")
-    return res.json(newCart)    
+    return res.json(newCart)
   } else {
     throw new Error("error!")
   }
 })
 
-
+app.post("/cart/checkout", authUser, async (req: JwtRequest<CartItem>, res: Response) => {
+  if (req.jwt?.email) {
+    const user = await UserModel.findOne({email: req.jwt.email})
+    const cart = await CartModel.findById(user?.activeCart).populate("products")
+    if (!cart) {
+      return res.sendStatus(404)
+    }
+    const address = user?.address
+    const products = cart.products
+    const totalPrice = products.reduce((sum, product) => {
+      return sum + product.price
+    }, 0)
+    const newOrder = new OrderModel({ 
+      orderStatus: "pending",
+      shippingCost: 79,
+      cart: products,
+      totalCost: totalPrice,
+      deliveryAddress: address
+    })
+    newOrder.save()
+    res.json(newOrder)
+  }
+})
 
 app.listen(PORT, async function () {
     await setupMongoDb(mongoUrl)
